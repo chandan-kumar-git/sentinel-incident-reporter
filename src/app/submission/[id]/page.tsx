@@ -8,7 +8,8 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 
 export default async function SubmissionPage({ params }: { params: { id: string } }) {
-  const incident = await getIncidentById(params.id);
+  const awaitedParams = await params;
+  const incident = await getIncidentById(awaitedParams.id);
 
   if (!incident) {
     notFound();

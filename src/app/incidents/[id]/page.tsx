@@ -13,7 +13,8 @@ import { IncidentTimeline } from '@/components/incident-timeline';
 
 
 export default async function IncidentDetailsPage({ params }: { params: { id: string } }) {
-  const incident = await getIncidentById(params.id);
+  const awaitedParams = await params;
+  const incident = await getIncidentById(awaitedParams.id);
 
   if (!incident) {
     notFound();
