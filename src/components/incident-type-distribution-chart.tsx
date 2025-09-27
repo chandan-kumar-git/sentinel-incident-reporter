@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from 'recharts';
 import { type IncidentReport, type IncidentType } from '@/lib/data';
 
 const typeColors: Record<IncidentType, string> = {
@@ -45,6 +45,3 @@ export function IncidentTypeDistributionChart({ incidents }: { incidents: Incide
     </div>
   );
 }
-
-// Re-exporting Cell for the Bar chart
-import { Cell } from 'recharts';
