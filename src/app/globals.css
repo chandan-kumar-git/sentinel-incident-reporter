@@ -66,4 +66,14 @@
   body {
     @apply bg-background text-foreground;
   }
+  .with-bg-image {
+    background-image: url('https://picsum.photos/seed/cyber/1920/1080');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  .with-bg-image main {
+    background-color: hsla(var(--background), 0.8);
+    backdrop-filter: blur(8px);
+  }
 }
