@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 export function Header() {
   const pathname = usePathname();
@@ -33,6 +34,18 @@ export function Header() {
               {link.label}
             </Link>
           ))}
+           <div className="flex items-center gap-2">
+             <Image 
+                src="https://i0.wp.com/opportunitycell.com/wp-content/uploads/2022/03/SIH2.png?fit=327%2C345&ssl=1"
+                alt="SIH 2025 Logo"
+                width={32}
+                height={32}
+             />
+             <div className="text-xs text-primary-foreground/70 hidden sm:block">
+                <p className="font-bold">SIH 2025</p>
+                <p>A prototype by Team Urbandons</p>
+            </div>
+           </div>
         </div>
       </nav>
     </header>
