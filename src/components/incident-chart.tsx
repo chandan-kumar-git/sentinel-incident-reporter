@@ -1,10 +1,9 @@
 "use client"
 
 import { useMemo } from 'react';
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from "recharts"
 import { type IncidentReport, type RiskLevel } from "@/lib/data"
 import { format, subDays, startOfDay } from 'date-fns';
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { useTheme } from 'next-themes';
 
 const riskLevelColors: Record<RiskLevel, string> = {
@@ -21,15 +20,17 @@ export function IncidentChart({ incidents }: { incidents: IncidentReport[] }) {
 
     const data = useMemo(() => {
         const days = 7;
-        const endDate = new Date();
-        const startDate = subDays(endDate, days - 1);
+        const endDate = startOfDay(new Date());
 
         // Initialize date range with zero counts
         const dateRange: { [key: string]: any } = {};
         for (let i = 0; i < days; i++) {
-            const date = format(subDays(endDate, i), 'MMM d');
-            dateRange[date] = { date, Critical: 0, High: 0, Medium: 0, Low: 0, Pending: 0 };
+            const date = subDays(endDate, i);
+            const dateKey = format(date, 'MMM d');
+            dateRange[dateKey] = { date: dateKey, Critical: 0, High: 0, Medium: 0, Low: 0, Pending: 0 };
         }
+        
+        const startDate = subDays(endDate, days - 1);
 
         // Aggregate incident data
         incidents.forEach(incident => {
@@ -61,6 +62,7 @@ export function IncidentChart({ incidents }: { incidents: IncidentReport[] }) {
                             borderRadius: "var(--radius)",
                         }}
                     />
+                    <Legend wrapperStyle={{fontSize: "12px"}}/>
                     <Bar dataKey="Critical" stackId="a" fill={riskLevelColors.Critical} name="Critical" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="High" stackId="a" fill={riskLevelColors.High} name="High" />
                     <Bar dataKey="Medium" stackId="a" fill={riskLevelColors.Medium} name="Medium" />

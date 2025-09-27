@@ -130,7 +130,7 @@ export function DashboardClient({ incidents }: { incidents: IncidentReport[] }) 
 
        <Card>
         <CardHeader>
-          <CardTitle>Incident Trend</CardTitle>
+          <CardTitle>Incident Trend (Last 7 Days)</CardTitle>
         </CardHeader>
         <CardContent>
           <IncidentChart incidents={incidents} />
