@@ -67,7 +67,7 @@
     @apply bg-background text-foreground;
   }
   .with-bg-image {
-    background-image: url('https://picsum.photos/seed/cyber/1920/1080');
+    background-image: url('https://www.barracuda.com/content/dam/barracuda-blog/images/2024/02/adam-xdr-in-2020s-republish.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
