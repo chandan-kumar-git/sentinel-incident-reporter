@@ -81,6 +81,7 @@ export async function reportIncidentAction(prevState: any, formData: FormData) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: 'Error: Please check the form fields.',
+      data: null,
     };
   }
 
@@ -103,13 +104,18 @@ export async function reportIncidentAction(prevState: any, formData: FormData) {
 
     const savedIncident = await addIncident(newIncident);
 
-    redirect(`/submission/${savedIncident.id}`);
+    return {
+      message: 'Submission successful!',
+      errors: {},
+      data: savedIncident,
+    }
 
   } catch (e) {
     console.error(e);
     return {
       message: 'An unexpected error occurred. Please try again.',
       errors: {},
+      data: null,
     };
   }
 }
