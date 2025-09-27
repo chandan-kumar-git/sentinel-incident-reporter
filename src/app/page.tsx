@@ -2,6 +2,7 @@ import { IncidentForm } from '@/components/incident-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { ShieldCheck, Siren, TrendingUp, Users } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -10,10 +11,21 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8 animate-fade-in-up">
             <div className="space-y-4">
-               <span className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Cybersecurity Command Center</span>
-              <h1 className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl font-headline">
-                Protect Our Digital Front
-              </h1>
+              <div className="flex items-center gap-4">
+                <Image 
+                  src="https://upload.wikimedia.org/wikipedia/commons/2/22/Defence_Cyber_Agency.png" 
+                  alt="Defence Cyber Agency Logo"
+                  width={80}
+                  height={80}
+                  className="rounded-full"
+                />
+                <div>
+                  <span className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Defence Cyber Agency</span>
+                  <h1 className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl font-headline">
+                    Cyber Security Portal
+                  </h1>
+                </div>
+              </div>
               <p className="text-xl text-muted-foreground">
                 Your vigilance is our first line of defense. Report suspicious messages, URLs, or files for immediate analysis by Sentinel AI and help safeguard our digital infrastructure.
               </p>
