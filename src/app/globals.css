@@ -67,12 +67,24 @@
     @apply bg-background text-foreground;
   }
   .with-bg-image {
+    position: relative;
+    z-index: 1;
+  }
+  .with-bg-image::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-image: url('https://img.freepik.com/free-photo/cyber-security-concept-digital-art_23-2151637760.jpg?semt=ais_hybrid&w=740&q=80');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    filter: blur(8px);
+    z-index: -1;
   }
   .with-bg-image main {
-    background-color: hsla(var(--background), 0.8);
+    background-color: hsla(var(--background), 0.7);
   }
 }
