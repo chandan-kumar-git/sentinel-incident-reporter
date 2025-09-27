@@ -74,6 +74,5 @@
   }
   .with-bg-image main {
     background-color: hsla(var(--background), 0.8);
-    backdrop-filter: blur(8px);
   }
 }
