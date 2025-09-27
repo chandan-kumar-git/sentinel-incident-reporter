@@ -5,7 +5,7 @@ export default async function DashboardPage() {
   const incidents = await getIncidents();
   
   return (
-    <div className="container mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:px-8">
+    <div className="container mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:px-8 animate-fade-in">
       <div className="space-y-4">
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl font-headline">
           CERT-Army: Incident Triage Dashboard

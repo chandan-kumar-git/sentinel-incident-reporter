@@ -5,10 +5,10 @@ import { ShieldCheck, Siren, TrendingUp, Users } from 'lucide-react';
 
 export default function Home() {
   return (
-    <div className="bg-background">
+    <div className="bg-background animate-fade-in">
       <div className="container mx-auto max-w-7xl py-16 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="space-y-8">
+          <div className="space-y-8 animate-fade-in-up">
             <div className="space-y-4">
                <span className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Cybersecurity Command Center</span>
               <h1 className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl font-headline">
@@ -26,24 +26,24 @@ export default function Home() {
               </AlertDescription>
             </Alert>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-                <div className="p-4 rounded-lg bg-card/50">
+                <div className="p-4 rounded-lg bg-card/50 transition-transform transform hover:scale-105">
                     <ShieldCheck className="h-8 w-8 text-green-500 mx-auto mb-2" />
                     <div className="text-3xl font-bold">1,204</div>
                     <p className="text-sm text-muted-foreground">Incidents Resolved</p>
                 </div>
-                <div className="p-4 rounded-lg bg-card/50">
+                <div className="p-4 rounded-lg bg-card/50 transition-transform transform hover:scale-105">
                     <Siren className="h-8 w-8 text-red-500 mx-auto mb-2" />
                     <div className="text-3xl font-bold">12</div>
                     <p className="text-sm text-muted-foreground">Active Critical Threats</p>
                 </div>
-                <div className="p-4 rounded-lg bg-card/50">
+                <div className="p-4 rounded-lg bg-card/50 transition-transform transform hover:scale-105">
                     <TrendingUp className="h-8 w-8 text-blue-500 mx-auto mb-2" />
                     <div className="text-3xl font-bold">+15%</div>
                     <p className="text-sm text-muted-foreground">Reports This Week</p>
                 </div>
             </div>
           </div>
-          <div className="bg-card p-2 rounded-xl shadow-2xl shadow-primary/10">
+          <div className="bg-card p-2 rounded-xl shadow-2xl shadow-primary/10 animate-fade-in-up [animation-delay:0.2s]">
             <IncidentForm />
           </div>
         </div>
