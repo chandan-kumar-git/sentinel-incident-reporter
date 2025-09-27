@@ -3,6 +3,8 @@
 import { redirect } from 'next/navigation';
 import { addIncident, type IncidentReport, type IncidentType, type RiskLevel } from '@/lib/data';
 import { reportIncidentSchema } from '@/lib/schema';
+import { summarizeIncidentReport } from '@/ai/flows/summarize-incident-report';
+import { suggestMitigationSteps } from '@/ai/flows/suggest-mitigation-steps';
 
 // Mock analysis function to determine risk level
 const determineRiskLevel = (content: string, type: IncidentType): RiskLevel => {
@@ -22,15 +24,18 @@ const determineRiskLevel = (content: string, type: IncidentType): RiskLevel => {
   return 'Low';
 };
 
-// Mock AI responses for summary and mitigation steps
-const getMockAIResponses = (riskLevel: RiskLevel, content: string, incidentType: IncidentType) => {
-    const summary = `This is an AI-generated summary for a reported ${incidentType} with content "${content.substring(0, 50)}...". The determined risk level is ${riskLevel}. This incident requires immediate attention based on the analysis of its content and type.`;
+// This function now uses Genkit flows instead of mock data
+const getAIResponses = async (riskLevel: RiskLevel, content: string, incidentType: IncidentType) => {
     
-    let mitigationSteps: string[] = [];
-
+    // 1. Get AI-generated summary
+    const summaryResponse = await summarizeIncidentReport({ incidentDetails: `Type: ${incidentType}, Content: ${content}` });
+    const summary = summaryResponse.summary;
+    
+    // 2. Get initial mitigation steps based on risk level (can still be rule-based)
+    let initialMitigationSteps: string[] = [];
     switch(riskLevel) {
         case 'Critical':
-            mitigationSteps = [
+            initialMitigationSteps = [
                 "Isolate the affected system from the network immediately.",
                 "Do not click any links or download any attachments.",
                 "Report the incident to the IT security head office now.",
@@ -38,32 +43,39 @@ const getMockAIResponses = (riskLevel: RiskLevel, content: string, incidentType:
             ];
             break;
         case 'High':
-            mitigationSteps = [
+            initialMitigationSteps = [
                 "Block the sender or the URL at the firewall.",
                 "Scan the affected system for malware or vulnerabilities.",
                 "Change any passwords that might have been compromised.",
-                "Alert team members to be aware of similar threats."
             ];
             break;
         case 'Medium':
-             mitigationSteps = [
+             initialMitigationSteps = [
                 "Advise the user to be cautious with unsolicited messages.",
                 "Verify the sender's identity through a separate, trusted channel.",
-                "Monitor network traffic for any unusual activity from the source.",
             ];
             break;
         case 'Low':
-            mitigationSteps = [
+            initialMitigationSteps = [
                 "No immediate action is required.",
-                "Educate the user on best security practices.",
                 "Archive the report for future reference and trend analysis."
             ];
             break;
         default:
-             mitigationSteps = ["Follow standard protocol for this risk level."];
+             initialMitigationSteps = ["Follow standard protocol for this risk level."];
     }
     
-    return { summary, mitigationSteps };
+    // 3. Get AI-suggested additional steps
+    const suggestedStepsResponse = await suggestMitigationSteps({
+      incidentType,
+      content,
+      riskLevel,
+      initialMitigationSteps
+    });
+
+    const allMitigationSteps = [...initialMitigationSteps, ...suggestedStepsResponse.suggestedMitigationSteps];
+    
+    return { summary, mitigationSteps: allMitigationSteps };
 };
 
 export async function reportIncidentAction(prevState: any, formData: FormData) {
@@ -84,8 +96,8 @@ export async function reportIncidentAction(prevState: any, formData: FormData) {
   try {
     const riskLevel = determineRiskLevel(content, incidentType);
     
-    // Using mock AI responses
-    const { summary, mitigationSteps } = getMockAIResponses(riskLevel, content, incidentType);
+    // Using real AI responses
+    const { summary, mitigationSteps } = await getAIResponses(riskLevel, content, incidentType);
 
     const newIncident: Omit<IncidentReport, 'id' | 'timestamp' | 'reporterId'> = {
       incidentType,
