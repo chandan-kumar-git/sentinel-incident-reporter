@@ -24,58 +24,51 @@ const determineRiskLevel = (content: string, type: IncidentType): RiskLevel => {
   return 'Low';
 };
 
-// This function now uses Genkit flows instead of mock data
+
+// This function uses mock data generation for a stable demo experience.
 const getAIResponses = async (riskLevel: RiskLevel, content: string, incidentType: IncidentType) => {
     
-    // 1. Get AI-generated summary
-    const summaryResponse = await summarizeIncidentReport({ incidentDetails: `Type: ${incidentType}, Content: ${content}` });
-    const summary = summaryResponse.summary;
+    // 1. Generate a mock summary
+    const summary = `This is a mock AI summary for a ${riskLevel} risk incident of type ${incidentType}. The content reported was: "${content.substring(0, 50)}...". Analysis indicates a potential threat that requires review.`;
     
-    // 2. Get initial mitigation steps based on risk level (can still be rule-based)
-    let initialMitigationSteps: string[] = [];
+    // 2. Generate mock mitigation steps
+    let mitigationSteps: string[] = [];
     switch(riskLevel) {
         case 'Critical':
-            initialMitigationSteps = [
-                "Isolate the affected system from the network immediately.",
-                "Do not click any links or download any attachments.",
-                "Report the incident to the IT security head office now.",
-                "Preserve all evidence; do not turn off the machine."
+            mitigationSteps = [
+                "Mock: Isolate the affected system from the network immediately.",
+                "Mock: Do not click any links or download any attachments.",
+                "Mock: Report the incident to the IT security head office now.",
+                "Mock: Preserve all evidence; do not turn off the machine."
             ];
             break;
         case 'High':
-            initialMitigationSteps = [
-                "Block the sender or the URL at the firewall.",
-                "Scan the affected system for malware or vulnerabilities.",
-                "Change any passwords that might have been compromised.",
+            mitigationSteps = [
+                "Mock: Block the sender or the URL at the firewall.",
+                "Mock: Scan the affected system for malware or vulnerabilities.",
+                "Mock: Change any passwords that might have been compromised.",
             ];
             break;
         case 'Medium':
-             initialMitigationSteps = [
-                "Advise the user to be cautious with unsolicited messages.",
-                "Verify the sender's identity through a separate, trusted channel.",
+             mitigationSteps = [
+                "Mock: Advise the user to be cautious with unsolicited messages.",
+                "Mock: Verify the sender's identity through a separate, trusted channel.",
             ];
             break;
         case 'Low':
-            initialMitigationSteps = [
-                "No immediate action is required.",
-                "Archive the report for future reference and trend analysis."
+            mitigationSteps = [
+                "Mock: No immediate action is required.",
+                "Mock: Archive the report for future reference and trend analysis."
             ];
             break;
         default:
-             initialMitigationSteps = ["Follow standard protocol for this risk level."];
+             mitigationSteps = ["Mock: Follow standard protocol for this risk level."];
     }
     
-    // 3. Get AI-suggested additional steps
-    const suggestedStepsResponse = await suggestMitigationSteps({
-      incidentType,
-      content,
-      riskLevel,
-      initialMitigationSteps
-    });
-
-    const allMitigationSteps = [...initialMitigationSteps, ...suggestedStepsResponse.suggestedMitigationSteps];
+    // Add one AI-like suggestion for variety
+    mitigationSteps.push("Mock AI Suggestion: Consider running a network-wide scan for similar patterns.");
     
-    return { summary, mitigationSteps: allMitigationSteps };
+    return { summary, mitigationSteps };
 };
 
 export async function reportIncidentAction(prevState: any, formData: FormData) {
@@ -96,7 +89,7 @@ export async function reportIncidentAction(prevState: any, formData: FormData) {
   try {
     const riskLevel = determineRiskLevel(content, incidentType);
     
-    // Using real AI responses
+    // Using reliable mock responses
     const { summary, mitigationSteps } = await getAIResponses(riskLevel, content, incidentType);
 
     const newIncident: Omit<IncidentReport, 'id' | 'timestamp' | 'reporterId'> = {
@@ -115,7 +108,7 @@ export async function reportIncidentAction(prevState: any, formData: FormData) {
   } catch (e) {
     console.error(e);
     return {
-      message: 'An unexpected error occurred during analysis. Please try again.',
+      message: 'An unexpected error occurred. Please try again.',
       errors: {},
     };
   }
