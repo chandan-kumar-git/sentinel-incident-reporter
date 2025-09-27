@@ -45,6 +45,12 @@ const nextConfig: NextConfig = {
         hostname: 'www.barracuda.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.freepik.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },

@@ -59,6 +59,18 @@ export default function Home() {
             <IncidentForm />
           </div>
         </div>
+
+        <div className="mt-24">
+            <Image
+                src="https://img.freepik.com/free-photo/cyber-security-concept-digital-art_23-2151637760.jpg?semt=ais_hybrid&w=740&q=80"
+                alt="Cyber Security Concept"
+                width={1200}
+                height={400}
+                className="rounded-xl shadow-lg object-cover w-full h-[400px]"
+                data-ai-hint="cyber security"
+            />
+        </div>
+
       </div>
     </div>
   );
