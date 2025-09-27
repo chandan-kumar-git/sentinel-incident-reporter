@@ -30,7 +30,7 @@ export function IncidentTimeline({ events }: { events: IncidentEvent[] }) {
     );
   }
   
-  const sortedEvents = [...events].sort((a,b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+  const sortedEvents = [...events].sort((a,b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
   return (
     <div className="space-y-8">

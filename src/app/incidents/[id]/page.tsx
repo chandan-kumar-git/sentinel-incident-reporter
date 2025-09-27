@@ -1,7 +1,7 @@
 import { getIncidentById } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { List, ShieldAlert, ArrowLeft, Clock } from 'lucide-react';
+import { List, ShieldAlert, ArrowLeft, Clock, Info } from 'lucide-react';
 import { RiskBadge } from '@/components/risk-badge';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -38,7 +38,7 @@ export default async function IncidentDetailsPage({ params }: { params: { id: st
                 </CardHeader>
                 <CardContent className="space-y-6">
                 <div className="space-y-4 rounded-lg border bg-card p-6">
-                    <h3 className="font-semibold text-lg">Incident Information</h3>
+                    <h3 className="font-semibold text-lg flex items-center gap-2"><Info /> Incident Information</h3>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
                         <p className="text-sm font-medium text-muted-foreground">Incident ID</p>

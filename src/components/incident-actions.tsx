@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ServerOff, Loader2, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { ServerOff, Loader2 } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
