@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { type IncidentReport, type RiskLevel } from '@/lib/data';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -40,15 +40,28 @@ export function DashboardClient({ incidents }: { incidents: IncidentReport[] }) 
   const [sortBy, setSortBy] = useState<SortKey>('riskLevel');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
   const [riskFilter, setRiskFilter] = useState<string>('all');
-
-
-  const summaryStats = useMemo(() => {
+  
+  const initialSummaryStats = useMemo(() => {
     const total = incidents.length;
     const critical = incidents.filter(i => i.riskLevel === 'Critical').length;
     const pending = incidents.filter(i => i.status === 'Submitted' || i.status === 'Analyzed').length;
     return { total, critical, pending };
   }, [incidents]);
-  
+
+  const [summaryStats, setSummaryStats] = useState(initialSummaryStats);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSummaryStats(prevStats => ({
+        total: prevStats.total + (Math.random() > 0.7 ? 1 : 0),
+        critical: Math.max(0, prevStats.critical + (Math.random() > 0.9 ? 1 : (Math.random() > 0.8 ? -1 : 0))),
+        pending: Math.max(0, prevStats.pending + (Math.random() > 0.6 ? 1 : (Math.random() > 0.5 ? -1 : 0))),
+      }));
+    }, 3000); // Fluctuate every 3 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   const filteredIncidents = useMemo(() => {
     return incidents.filter(incident => {
       if (riskFilter === 'all') return true;
