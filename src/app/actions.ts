@@ -1,7 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { addIncident, type IncidentReport, type IncidentType, type RiskLevel } from '@/lib/data';
+import { addIncident, updateIncidentStatus, type IncidentReport, type IncidentType, type RiskLevel } from '@/lib/data';
 import { reportIncidentSchema } from '@/lib/schema';
 import { summarizeIncidentReport } from '@/ai/flows/summarize-incident-report';
 import { suggestMitigationSteps } from '@/ai/flows/suggest-mitigation-steps';
@@ -93,7 +93,7 @@ export async function reportIncidentAction(prevState: any, formData: FormData) {
     // Using reliable mock responses
     const { summary, mitigationSteps } = await getAIResponses(riskLevel, content, incidentType);
 
-    const newIncident: Omit<IncidentReport, 'id' | 'timestamp' | 'reporterId'> = {
+    const newIncident: Omit<IncidentReport, 'id' | 'timestamp' | 'reporterId' | 'events'> = {
       incidentType,
       content,
       riskLevel,
@@ -143,5 +143,20 @@ export async function getAdditionalMitigation(incident: IncidentReport) {
     } catch (error) {
         console.error("AI suggestion failed, returning mock data:", error);
         return suggestions;
+    }
+}
+
+
+export async function isolateHostAction(incidentId: string) {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+        const updatedIncident = await updateIncidentStatus(incidentId, 'Contained', 'Host isolated by analyst.');
+        if (!updatedIncident) {
+            return { success: false, message: 'Incident not found.' };
+        }
+        return { success: true, incident: updatedIncident };
+    } catch (error) {
+        console.error("Failed to isolate host:", error);
+        return { success: false, message: 'An unexpected error occurred.' };
     }
 }
