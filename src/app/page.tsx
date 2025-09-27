@@ -1,63 +1,51 @@
 import { IncidentForm } from '@/components/incident-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { ShieldCheck, Siren, TrendingUp } from 'lucide-react';
+import { ShieldCheck, Siren, TrendingUp, Users } from 'lucide-react';
 
 export default function Home() {
   return (
-    <div className="container mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        <div className="space-y-6">
-          <div className="space-y-2">
-            <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl font-headline">
-              Report a Cyber Incident
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Your vigilance helps protect our networks. Report suspicious messages, URLs, or files for immediate analysis by Sentinel AI.
-            </p>
+    <div className="bg-background">
+      <div className="container mx-auto max-w-7xl py-16 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="space-y-8">
+            <div className="space-y-4">
+               <span className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Cybersecurity Command Center</span>
+              <h1 className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl font-headline">
+                Protect Our Digital Front
+              </h1>
+              <p className="text-xl text-muted-foreground">
+                Your vigilance is our first line of defense. Report suspicious messages, URLs, or files for immediate analysis by Sentinel AI and help safeguard our digital infrastructure.
+              </p>
+            </div>
+             <Alert variant="default" className="bg-accent/10 border-accent/20">
+              <Siren className="h-5 w-5 !text-accent" />
+              <AlertTitle className="font-bold text-accent">Vigilance is Key</AlertTitle>
+              <AlertDescription className="text-accent-foreground/80">
+                Timely reporting enables our AI systems to detect threats, neutralize attacks, and protect the entire organization. Every submission strengthens our collective security.
+              </AlertDescription>
+            </Alert>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                <div className="p-4 rounded-lg bg-card/50">
+                    <ShieldCheck className="h-8 w-8 text-green-500 mx-auto mb-2" />
+                    <div className="text-3xl font-bold">1,204</div>
+                    <p className="text-sm text-muted-foreground">Incidents Resolved</p>
+                </div>
+                <div className="p-4 rounded-lg bg-card/50">
+                    <Siren className="h-8 w-8 text-red-500 mx-auto mb-2" />
+                    <div className="text-3xl font-bold">12</div>
+                    <p className="text-sm text-muted-foreground">Active Critical Threats</p>
+                </div>
+                <div className="p-4 rounded-lg bg-card/50">
+                    <TrendingUp className="h-8 w-8 text-blue-500 mx-auto mb-2" />
+                    <div className="text-3xl font-bold">+15%</div>
+                    <p className="text-sm text-muted-foreground">Reports This Week</p>
+                </div>
+            </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <Card className="bg-card/50">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Incidents Resolved</CardTitle>
-                <ShieldCheck className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">1,204</div>
-                <p className="text-xs text-muted-foreground">+5% from last month</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-card/50">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Active Threats</CardTitle>
-                <Siren className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">12</div>
-                 <p className="text-xs text-muted-foreground">Critical level</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-card/50">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Reporting Trend</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">+15%</div>
-                 <p className="text-xs text-muted-foreground">This week</p>
-              </CardContent>
-            </Card>
+          <div className="bg-card p-2 rounded-xl shadow-2xl shadow-primary/10">
+            <IncidentForm />
           </div>
-           <Alert variant="default" className="bg-accent/10 border-accent/50 text-accent-foreground">
-            <Siren className="h-5 w-5 !text-accent" />
-            <AlertTitle className="font-semibold">Why Report?</AlertTitle>
-            <AlertDescription>
-              Timely reporting is crucial. It allows our AI-powered systems to detect patterns, neutralize threats, and protect the entire organization from potential cyber attacks. Every report matters.
-            </AlertDescription>
-          </Alert>
-        </div>
-        <div>
-          <IncidentForm />
         </div>
       </div>
     </div>
