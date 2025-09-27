@@ -119,3 +119,29 @@ export async function reportIncidentAction(prevState: any, formData: FormData) {
     };
   }
 }
+
+
+export async function getAdditionalMitigation(incident: IncidentReport) {
+    // This function can be swapped with a real AI call.
+    // For now, it returns mock suggestions.
+    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+    
+    const suggestions = [
+        "Mock AI Suggestion: Perform a historical log review for similar IOCs.",
+        "Mock AI Suggestion: Implement stricter egress filtering rules on the firewall.",
+        "Mock AI Suggestion: Conduct a phishing awareness training session for the affected department."
+    ];
+
+    try {
+        const aiSuggestions = await suggestMitigationSteps({
+            incidentType: incident.incidentType,
+            content: incident.content,
+            riskLevel: incident.riskLevel,
+            initialMitigationSteps: incident.mitigationSteps,
+        });
+        return aiSuggestions.suggestedMitigationSteps;
+    } catch (error) {
+        console.error("AI suggestion failed, returning mock data:", error);
+        return suggestions;
+    }
+}

@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { RiskBadge } from './risk-badge';
-import { AlertTriangle, ArrowUpDown, ShieldCheck, Siren } from 'lucide-react';
+import { AlertTriangle, ArrowUpDown, ShieldCheck, Siren, Settings } from 'lucide-react';
 import { Badge } from './ui/badge';
 import {
   Select,
@@ -15,7 +15,14 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
+import { IncidentChart } from './incident-chart';
+import { ThemeSwitcher } from './theme-switcher';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 
 const riskOrder: Record<RiskLevel, number> = {
@@ -79,6 +86,18 @@ export function DashboardClient({ incidents }: { incidents: IncidentReport[] }) 
   
   return (
     <div className="space-y-8">
+       <div className="flex justify-end">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline"><Settings className="mr-2" /> Settings</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+                <div className="p-2">
+                    <ThemeSwitcher />
+                </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       <div className="grid gap-4 md:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -108,6 +127,16 @@ export function DashboardClient({ incidents }: { incidents: IncidentReport[] }) 
           </CardContent>
         </Card>
       </div>
+
+       <Card>
+        <CardHeader>
+          <CardTitle>Incident Trend</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <IncidentChart incidents={incidents} />
+        </CardContent>
+      </Card>
+
 
       <Card>
         <CardHeader>

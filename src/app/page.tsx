@@ -27,17 +27,17 @@ export default function Home() {
             </Alert>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
                 <div className="p-4 rounded-lg bg-card/50 transition-transform transform hover:scale-105">
-                    <ShieldCheck className="h-8 w-8 text-green-500 mx-auto mb-2" />
+                    <ShieldCheck className="h-8 w-8 text-chart-2 mx-auto mb-2" />
                     <div className="text-3xl font-bold">1,204</div>
                     <p className="text-sm text-muted-foreground">Incidents Resolved</p>
                 </div>
                 <div className="p-4 rounded-lg bg-card/50 transition-transform transform hover:scale-105">
-                    <Siren className="h-8 w-8 text-red-500 mx-auto mb-2" />
+                    <Siren className="h-8 w-8 text-chart-1 mx-auto mb-2" />
                     <div className="text-3xl font-bold">12</div>
                     <p className="text-sm text-muted-foreground">Active Critical Threats</p>
                 </div>
                 <div className="p-4 rounded-lg bg-card/50 transition-transform transform hover:scale-105">
-                    <TrendingUp className="h-8 w-8 text-blue-500 mx-auto mb-2" />
+                    <TrendingUp className="h-8 w-8 text-chart-4 mx-auto mb-2" />
                     <div className="text-3xl font-bold">+15%</div>
                     <p className="text-sm text-muted-foreground">Reports This Week</p>
                 </div>

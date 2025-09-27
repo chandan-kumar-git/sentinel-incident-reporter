@@ -1,13 +1,14 @@
 import { getIncidentById } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { List, ListChecks, ShieldAlert } from 'lucide-react';
+import { List, ShieldAlert, ArrowLeft } from 'lucide-react';
 import { RiskBadge } from '@/components/risk-badge';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { InteractiveMitigation } from '@/components/interactive-mitigation';
+
 
 export default async function IncidentDetailsPage({ params }: { params: { id: string } }) {
   const incident = await getIncidentById(params.id);
@@ -32,7 +33,7 @@ export default async function IncidentDetailsPage({ params }: { params: { id: st
           <CardDescription>Full report and analysis for incident ID: {incident.id}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="space-y-4 rounded-lg border bg-background p-6">
+          <div className="space-y-4 rounded-lg border bg-card p-6">
             <h3 className="font-semibold text-lg">Incident Information</h3>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
@@ -67,7 +68,7 @@ export default async function IncidentDetailsPage({ params }: { params: { id: st
             </div>
           </div>
           
-          <div className="space-y-4 rounded-lg border bg-background p-6">
+          <div className="space-y-4 rounded-lg border bg-card p-6">
             <h3 className="font-semibold text-lg flex items-center gap-2"><ShieldAlert className="text-accent" /> AI Analysis & Recommendations</h3>
              <Separator />
              <div>
@@ -75,14 +76,7 @@ export default async function IncidentDetailsPage({ params }: { params: { id: st
                 <p className="mt-2 text-sm">{incident.summary}</p>
             </div>
             <Separator />
-            <div>
-                <h4 className="font-semibold flex items-center gap-2"><ListChecks /> Recommended Mitigation Steps</h4>
-                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
-                    {incident.mitigationSteps.map((step, index) => (
-                    <li key={index}>{step}</li>
-                    ))}
-                </ul>
-            </div>
+            <InteractiveMitigation incident={incident} />
           </div>
 
         </CardContent>
