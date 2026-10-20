@@ -1,6 +1,6 @@
 <div align="center">
 
-# Sentinel AI: Cyber Incident Reporter
+<img src="docs/brand/wordmark.webp" alt="Sentinel AI: Cyber Incident Reporter" width="100%">
 
 **Defence personnel report a suspicious URL, message or file; Sentinel assigns a risk level and mitigation steps; CERT-Army triages everything on one dashboard.**
 
