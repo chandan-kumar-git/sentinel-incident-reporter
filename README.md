@@ -55,5 +55,3 @@ For the AI flows, set `GEMINI_API_KEY` (or `GOOGLE_API_KEY`) in `.env`.
 | `/dashboard` | CERT-Army triage dashboard |
 | `/analysis` | Incident analysis charts |
 | `/incidents/[id]` | Incident details |
-
-Design notes: [docs/blueprint.md](docs/blueprint.md).
